@@ -1,0 +1,52 @@
+# Smaller bbox for fast iteration (Bellandur / ORR corridor) — copy to config.yaml or:
+# CONFIG=config.dev.yaml python scripts/run_pipeline.py
+city:
+  name: "Bengaluru (Bellandur dev)"
+  country: "India"
+  admin_label: "Dev subset"
+  bbox: [77.66, 12.91, 77.72, 12.96]
+  crs_storage: "EPSG:4326"
+  crs_analysis: "EPSG:32643"
+
+access:
+  mode: "driving"
+  speeds_kmh:
+    motorway: 50
+    trunk: 45
+    primary: 35
+    secondary: 30
+    tertiary: 25
+    residential: 20
+    living_street: 15
+    unclassified: 20
+    service: 15
+    default: 22
+  threshold_minutes: 15
+  isochrone_bands: [5, 10, 15, 20, 30]
+
+demand:
+  worldpop_year: 2020
+  allocation_max_minutes: 30
+  capacity_by_type:
+    hospital: 500
+    clinic: 150
+    doctors: 80
+    pharmacy: 40
+    default: 100
+
+underserved_weights:
+  travel_time: 0.40
+  population_density: 0.25
+  facility_load: 0.25
+  access_gap: 0.10
+
+optimization:
+  max_new_facilities: 3
+  candidate_grid_m: 1000
+  objective: "maximize_population_within_15min"
+  min_separation_m: 1500
+
+paths:
+  raw: "data/raw"
+  processed: "data/processed"
+  osm_pbf_local: "/Users/mithun.m/Bengaluru.osm.pbf"

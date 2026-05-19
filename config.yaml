@@ -1,0 +1,71 @@
+# Urban Access Brief — user-provided datasets
+city:
+  name: "Bengaluru"
+  country: "India"
+  admin_label: "Vijayanagara & Bapuji Nagar wards (BBMP 2003)"
+  # Auto-set from ward polygon when using run_user_data.py
+  bbox: [77.5379, 12.9530, 77.5545, 12.9756]
+  crs_storage: "EPSG:4326"
+  crs_analysis: "EPSG:32643"
+
+study:
+  ward_names:
+    - "Vijayanagara"
+    - "Bapuji Nagar"
+  ward_buffer_m: 0
+  hospital_buffer_m: 2500   # include hospitals within 2.5 km (Mysore Rd corridor)
+
+access:
+  mode: "driving"
+  speeds_kmh:
+    motorway: 50
+    trunk: 45
+    primary: 35
+    secondary: 30
+    tertiary: 25
+    residential: 20
+    living_street: 15
+    unclassified: 20
+    service: 15
+    default: 22
+  threshold_minutes: 15
+  isochrone_bands: [5, 10, 15, 20, 30]
+
+constraints:
+  enabled: true
+  exclude_population_on_water: false
+  remove_edges_crossing_water: false
+  filter_non_drive_highways: true
+  filter_blocked_access: true
+
+demand:
+  worldpop_year: 2020
+  worldpop_raster: "data/raw/worldpop_2020_india.tif"
+  allocation_max_minutes: 30
+  capacity_by_type:
+    hospital: 500
+    clinic: 150
+    doctors: 80
+    pharmacy: 40
+    default: 100
+
+underserved_weights:
+  travel_time: 0.40
+  population_density: 0.25
+  facility_load: 0.25
+  access_gap: 0.10
+
+optimization:
+  max_new_facilities: 3
+  candidate_grid_m: 1000
+  objective: "maximize_population_within_15min"
+  min_separation_m: 800
+
+paths:
+  raw: "data/raw"
+  processed: "data/processed"
+  bbmp_wards_shp: "/Users/mithun.m/Downloads/2003_Bbmp (3)/2003_BBMP.shp"
+  roads_geojson: "/Users/mithun.m/Downloads/roads.geojson"
+  junctions_geojson: "/Users/mithun.m/Downloads/junctions.geojson"
+  hospitals_desktop: "/Users/mithun.m/Desktop/bbmp hospital.geojson"
+  bbmp_hospitals_osm: "/Users/mithun.m/Downloads/BBMP hospital.geojson"
